@@ -15,6 +15,7 @@
 #include <mtspmc.h>
 #include <platform_def.h>
 #include <pmic.h>
+#include <rtc.h>
 
 static uintptr_t secure_entrypoint;
 
@@ -109,6 +110,8 @@ static void plat_get_sys_suspend_power_state(psci_power_state_t *req_state)
 static void __dead2 plat_system_off(void)
 {
 	INFO("MTK System Off\n");
+	rtc_power_off_sequence();
+	wk_pmic_enable_sdn_delay();
 	pmic_power_off();
 	wfi();
 	ERROR("MTK System Off: operation not handled.\n");
