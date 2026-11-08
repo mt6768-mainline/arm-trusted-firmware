@@ -9,6 +9,7 @@
 #include <common/bl_common.h>
 #include <common/debug.h>
 #include <common/desc_image_load.h>
+#include <devapc.h>
 #include <drivers/console.h>
 #include <drivers/generic_delay_timer.h>
 #include <drivers/ti/uart/uart_16550.h>
@@ -110,6 +111,7 @@ void bl31_platform_setup(void)
 
 	mt_systimer_init();
 	spm_boot_init();
+	devapc_init();
 }
 
 /*******************************************************************************
