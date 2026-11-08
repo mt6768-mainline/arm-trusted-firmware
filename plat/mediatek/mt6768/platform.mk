@@ -16,6 +16,7 @@ PLAT_INCLUDES := -I${MTK_PLAT_SOC}/include/                       \
                  -I${MTK_PLAT}/drivers/uart/                      \
                  -I${MTK_PLAT}/include/                           \
                  -I${MTK_PLAT_SOC}/drivers/pmic/                  \
+                 -I${MTK_PLAT_SOC}/drivers/rtc/                   \
                  -I${MTK_PLAT_SOC}/drivers/spm/                   \
                  -I${MTK_PLAT_SOC}/drivers/spmc/
 
@@ -55,12 +56,14 @@ BL31_SOURCES += common/desc_image_load.c                              \
                 ${MTK_PLAT}/common/params_setup.c                     \
                 ${MTK_PLAT}/drivers/gic600/mt_gic_v3.c                \
                 ${MTK_PLAT}/drivers/pmic_wrap/pmic_wrap_init.c        \
+                ${MTK_PLAT}/drivers/rtc/rtc_common.c                  \
                 ${MTK_PLAT}/drivers/timer/mt_timer.c                  \
                 ${MTK_PLAT}/drivers/uart/uart.c                       \
                 ${MTK_PLAT_SOC}/aarch64/platform_common.c             \
                 ${MTK_PLAT_SOC}/aarch64/plat_helpers.S                \
                 ${MTK_PLAT_SOC}/bl31_plat_setup.c                     \
                 ${MTK_PLAT_SOC}/drivers/pmic/pmic.c                   \
+                ${MTK_PLAT_SOC}/drivers/rtc/rtc.c                     \
                 ${MTK_PLAT_SOC}/drivers/spm/mt_spm_vcorefs.c          \
                 ${MTK_PLAT_SOC}/drivers/spm/spm.c                     \
                 ${MTK_PLAT_SOC}/drivers/spm/spm_pmic_wrap.c           \
