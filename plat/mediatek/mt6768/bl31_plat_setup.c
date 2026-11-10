@@ -76,8 +76,7 @@ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
 
 			SET_PARAM_HEAD(&bl33_ep_info, PARAM_EP, VERSION_1, 0);
 			SET_SECURITY_STATE(bl33_ep_info.h.attr, NON_SECURE);
-			bl33_ep_info.pc = pmtk->bl33_start_addr ?
-					  pmtk->bl33_start_addr : BL33_BASE;
+			bl33_ep_info.pc = BL33_BASE;
 			bl33_ep_info.spsr = SPSR_64(MODE_EL2, MODE_SP_ELX,
 						    DISABLE_ALL_EXCEPTIONS);
 			bl33_ep_info.args.arg0 = pmtk->bootarg_loc;
