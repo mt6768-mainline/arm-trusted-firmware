@@ -166,7 +166,7 @@
 
 #define BL31_BASE           (TZRAM_BASE + 0x1000)
 #define BL31_LIMIT          (TZRAM_BASE + TZRAM_SIZE)
-#define BL33_BASE           0x40080000
+#define BL33_BASE           0x4c400000
 
 /*******************************************************************************
  * Platform specific page table and MMU setup constants
