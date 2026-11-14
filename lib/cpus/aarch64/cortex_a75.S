@@ -139,9 +139,10 @@ func cortex_a75_core_pwr_dwn
 	 * Enable CPU power down bit in power control register
 	 * ---------------------------------------------
 	 */
-	sysreg_bit_set CORTEX_A75_CPUPWRCTLR_EL1, \
+	sysreg_bit_toggle CORTEX_A75_CPUPWRCTLR_EL1, \
 		CORTEX_A75_CORE_PWRDN_EN_MASK
 	isb
+	signal_pabandon_handled
 	ret
 endfunc cortex_a75_core_pwr_dwn
 
