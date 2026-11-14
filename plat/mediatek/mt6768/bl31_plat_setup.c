@@ -6,6 +6,7 @@
 
 #include <assert.h>
 #include <arch_helpers.h>
+#include <cache_ops.h>
 #include <common/bl_common.h>
 #include <common/debug.h>
 #include <common/desc_image_load.h>
@@ -14,6 +15,7 @@
 #include <drivers/generic_delay_timer.h>
 #include <drivers/ti/uart/uart_16550.h>
 #include <lib/mmio.h>
+#include <mcucfg.h>
 #include <mt_gic_v3.h>
 #include <mt_timer.h>
 #include <mtspmc.h>
@@ -64,6 +66,8 @@ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
 	console_set_scope(&console, CONSOLE_FLAG_BOOT | CONSOLE_FLAG_RUNTIME |
 				    CONSOLE_FLAG_CRASH);
 
+	disable_cache_as_ram();
+
 	NOTICE("MT6768 bl31_setup\n");
 
 	if (arg0 != 0U) {
@@ -110,6 +114,8 @@ void bl31_platform_setup(void)
 	/* Allow cluster to stay on */
 	write_clusterpwrdn_el1(1);
 
+	mmio_write_32(MP0_RW_RSVD0, 0x00000001);
+
 	mt_systimer_init();
 	spm_boot_init();
 	devapc_init();
@@ -124,4 +130,5 @@ void bl31_plat_arch_setup(void)
 			       BL31_END - BL31_START,
 			       BL_CODE_BASE,
 			       BL_CODE_END);
+	mmio_clrbits_32(MP0_AXI_CONFIG, MPx_AXI_CONFIG_ACINACTM);
 }

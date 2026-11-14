@@ -16,6 +16,11 @@
 
 #define MCUCFG_REG(ofs)			(uint32_t)(MCUCFG_BASE + (ofs))
 
+#define MP0_AXI_CONFIG			MCUCFG_REG(0x002c)
+#define MPx_AXI_CONFIG_ACINACTM		BIT(4)
+
+#define MP0_RW_RSVD0			MCUCFG_REG(0x006c)
+
 /* CPC related registers */
 #define CPC_MCUSYS_CPC_OFF_THRES	MCUCFG_REG(0xa714)
 #define CPC_MCUSYS_PWR_CTRL		MCUCFG_REG(0xa804)

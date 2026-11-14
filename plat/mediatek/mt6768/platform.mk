@@ -53,6 +53,7 @@ BL31_SOURCES += common/desc_image_load.c                              \
                 lib/cpus/aarch64/cortex_a55.S                         \
                 lib/cpus/aarch64/cortex_a75.S                         \
                 plat/common/plat_gicv3.c                              \
+                ${MTK_PLAT}/common/cache_ops.c                        \
                 ${MTK_PLAT}/common/mtk_plat_common.c                  \
                 ${MTK_PLAT}/common/mtk_sip_svc.c                      \
                 ${MTK_PLAT}/common/params_setup.c                     \
