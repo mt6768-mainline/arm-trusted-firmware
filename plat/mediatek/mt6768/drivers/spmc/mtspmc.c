@@ -23,6 +23,7 @@ void mcucfg_disable_gic_wakeup(unsigned int cluster, unsigned int cpu)
 void mcucfg_enable_gic_wakeup(unsigned int cluster, unsigned int cpu)
 {
 	mmio_clrbits_32(MCUCFG_CPC_FLOW_CTRL_CFG, GIC_WAKEUP_IGNORE(cpu));
+	mmio_write_32(CPC_MCUSYS_CPU_ON_SW_HINT_CLR, BIT(cpu));
 }
 
 void mcucfg_set_bootaddr(unsigned int cluster, unsigned int cpu, uintptr_t bootaddr)
@@ -78,6 +79,8 @@ bool spm_get_cpu_powerstate(unsigned int cluster, unsigned int cpu)
 
 int spmc_init(void)
 {
+	unsigned int cpu = plat_my_core_pos();
+
 	INFO("SPM: enable CPC mode\n");
 
 	mmio_write_32(SPM_POWERON_CONFIG_EN, PROJECT_CODE | BCLK_CG_EN);
@@ -96,7 +99,11 @@ int spmc_init(void)
 	mmio_clrbits_32(SPM_MP0_CPUTOP_PWR_CON, RESETPWRON_CONFIG);
 	mmio_clrbits_32(per_cpu(0, 0, SPM_CPU_PWR), RESETPWRON_CONFIG);
 
-	/* Enable CPC flow control */
+	/* Enable GIC wakeup and clear CPC ON hint for boot CPU */
+	mcucfg_enable_gic_wakeup(0U, cpu);
+
+	/* Disable CPC reset power-on and enable CPC flow control */
+	mmio_clrbits_32(MCUCFG_CPC_FLOW_CTRL_CFG, CPC_MCUSYS_CPC_RESET_PWR_ON_EN);
 	mmio_setbits_32(MCUCFG_CPC_FLOW_CTRL_CFG, CPC_CTRL_ENABLE);
 
 	return 0;

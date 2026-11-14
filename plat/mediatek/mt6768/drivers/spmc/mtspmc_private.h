@@ -72,6 +72,7 @@ static const struct per_cpu_reg MCUCFG_INITARCH[] = {
 /* Bit fields of CPC_FLOW_CTRL_CFG */
 #define CPC_CTRL_ENABLE			BIT(16)
 #define SSPM_ALL_PWR_CTRL_EN		BIT(13)
+#define CPC_MCUSYS_CPC_RESET_PWR_ON_EN	BIT(20)
 #define GIC_WAKEUP_IGNORE(cpu)		BIT(21 + (cpu))
 
 #endif /* MTSPMC_PRIVATE_H */
