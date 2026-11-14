@@ -6,11 +6,13 @@
 
 #include <arch.h>
 #include <asm_macros.S>
+#include <mcucfg.h>
 #include <platform_def.h>
 
 	.globl plat_is_my_cpu_primary
 	.globl plat_my_core_pos
 	.globl plat_mediatek_calc_core_pos
+	.globl plat_reset_handler
 
 func plat_is_my_cpu_primary
 	mrs	x0, mpidr_el1
@@ -43,3 +45,29 @@ func plat_mediatek_calc_core_pos
 	and	x0, x1, x0, lsr #MPIDR_AFF1_SHIFT
 	ret
 endfunc plat_mediatek_calc_core_pos
+
+func plat_reset_handler
+	mov	x10, x30
+	bl	plat_my_core_pos
+	mov	x30, x10
+	mov	w1, #0x1
+	lsl	w1, w1, w0
+	ldr	x0, =CPC_MCUSYS_CPU_ON_SW_HINT_SET
+	str	w1, [x0]
+	dsb	sy
+
+	/* -----------------------------------------------------
+	 * Enable DSU PMU EL1 write-access for MTK platform.
+	 * Bits [12:10]: CLUSTERPMUEN, SMEN, TSIDEN
+	 * -----------------------------------------------------
+	 */
+	mov	x0, #0x1c00
+	mrs	x1, actlr_el3
+	orr	x1, x1, x0
+	msr	actlr_el3, x1
+	mrs	x1, actlr_el2
+	orr	x1, x1, x0
+	msr	actlr_el2, x1
+
+	ret
+endfunc plat_reset_handler
