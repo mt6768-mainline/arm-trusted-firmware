@@ -16,6 +16,7 @@ PLAT_INCLUDES := -I${MTK_PLAT_SOC}/include/                       \
                  -I${MTK_PLAT}/drivers/uart/                      \
                  -I${MTK_PLAT}/include/                           \
                  -I${MTK_PLAT_SOC}/drivers/devapc/                \
+                 -I${MTK_PLAT_SOC}/drivers/emi_mpu/               \
                  -I${MTK_PLAT_SOC}/drivers/pmic/                  \
                  -I${MTK_PLAT_SOC}/drivers/rtc/                   \
                  -I${MTK_PLAT_SOC}/drivers/spm/                   \
@@ -64,6 +65,7 @@ BL31_SOURCES += common/desc_image_load.c                              \
                 ${MTK_PLAT_SOC}/aarch64/plat_helpers.S                \
                 ${MTK_PLAT_SOC}/bl31_plat_setup.c                     \
                 ${MTK_PLAT_SOC}/drivers/devapc/devapc.c               \
+                ${MTK_PLAT_SOC}/drivers/emi_mpu/emi_mpu.c             \
                 ${MTK_PLAT_SOC}/drivers/pmic/pmic.c                   \
                 ${MTK_PLAT_SOC}/drivers/rtc/rtc.c                     \
                 ${MTK_PLAT_SOC}/drivers/spm/mt_spm_vcorefs.c          \

@@ -8,6 +8,7 @@
 #include <common/runtime_svc.h>
 #include <lib/mmio.h>
 
+#include <emi_mpu.h>
 #include <mt_spm_vcorefs.h>
 #include <mtk_sip_svc.h>
 #include "plat_sip_calls.h"
@@ -24,6 +25,14 @@ uintptr_t mediatek_plat_sip_handler(uint32_t smc_fid,
 	uint64_t ret;
 
 	switch (smc_fid) {
+	case MTK_SIP_EMIDBG_CONTROL_AARCH32:
+	case MTK_SIP_EMIDBG_CONTROL_AARCH64:
+		if (!is_caller_non_secure(flags)) {
+			SMC_RET1(handle, MTK_SIP_E_PERMISSION_DENY);
+		}
+		ret = mt6768_emi_mpu_sip_handler(x1, x2, x3, x4);
+		SMC_RET1(handle, ret);
+		break;
 	case MTK_SIP_VCORE_CONTROL_AARCH32:
 	case MTK_SIP_VCORE_CONTROL_AARCH64:
 		ret = spm_vcorefs_v2_args(x1, x2, x3, (uint64_t *)&x4);

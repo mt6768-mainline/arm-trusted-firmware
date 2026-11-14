@@ -23,6 +23,7 @@
 #define SLEEP_REG_MD_BASE  (IO_PHYS + 0xf000)
 #define TOPCKGEN_BASE      (IO_PHYS + 0x0)
 #define APMIXEDSYS         (IO_PHYS + 0xc000)
+#define EMI_MPU_BASE       (IO_PHYS + 0x00226000)
 
 #define MCUCFG_BASE        0x0c530000
 #define MT_GIC_BASE        0x0c000000

@@ -10,7 +10,7 @@
 /*******************************************************************************
  * Plat SiP function constants
  ******************************************************************************/
-#define MTK_PLAT_SIP_NUM_CALLS		(4)
+#define MTK_PLAT_SIP_NUM_CALLS		(5)
 
 /* Legacy / vendor SMC IDs */
 #define MTK_SIP_KERNEL_SPM_VCOREFS_ARGS_AARCH32		0x82000226
